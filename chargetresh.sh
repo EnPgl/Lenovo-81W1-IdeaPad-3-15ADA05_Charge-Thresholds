@@ -1,4 +1,7 @@
-#bin/bash
+#!/bin/bash
+
+#stop execution on error
+set -o errexit
 
 #usage
 function usage {
