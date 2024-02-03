@@ -13,22 +13,26 @@ function usage {
  '
 }
 
+#print the battery status
 function status {
-	STAT=$(sudo cat /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode)
-	echo "Charge threshold status (0 disabled, 1 enabled)"
-	echo "/sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode: $STAT"
-	CHARGE=$(cat /sys/class/power_supply/BAT0/capacity)
-	echo "Charge[%]: $CHARGE"
-	BAT_STAT=$(cat /sys/class/power_supply/BAT0/status)
-	echo "Battery status: $BAT_STAT"
+	#find if the conservation mode/charge threshold is enabled from /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode
+	STATUS=$([[ $(sudo cat /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode) == 0 ]] && echo "disabled" || echo "enabled")
+	echo "Conservation mode/charge threshold status: $STATUS"
+	
+	#get the battery capacity from /sys/class/power_supply/BAT0/capacity
+	echo "Charge[%]: $(cat /sys/class/power_supply/BAT0/capacity)"
+	
+	#get the battery status from /sys/class/power_supply/BAT0/status
+	echo "Battery status: $(cat /sys/class/power_supply/BAT0/status)"
 }
 
+#enable/disable the threshold/Conservation mode
 function change_thres {
 	echo $1 | sudo tee /sys/bus/platform/drivers/ideapad_acpi/VPC2004\:00/conservation_mode > /dev/null
 }
 
 
-
+#get the input
 STR="$@"
 
 if [ "$STR" = "enable" ]; then
