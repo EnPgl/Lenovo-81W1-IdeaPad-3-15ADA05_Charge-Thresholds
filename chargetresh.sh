@@ -16,7 +16,7 @@ function usage {
 #print the battery status
 function status {
 	#find if the conservation mode/charge threshold is enabled from /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode
-	STATUS=$([[ $(sudo cat /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode) == 0 ]] && echo "disabled" || echo "enabled")
+	STATUS=$([[ $(cat /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode) == 0 ]] && echo "disabled" || echo "enabled")
 	echo "Conservation mode/charge threshold status: $STATUS"
 	
 	#get the battery capacity from /sys/class/power_supply/BAT0/capacity
