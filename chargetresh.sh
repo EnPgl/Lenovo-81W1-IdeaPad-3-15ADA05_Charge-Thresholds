@@ -6,9 +6,9 @@ set -o errexit
 #usage
 function usage {
 	echo 'Usage : 
- enable : Enable the charghe threshold
- disable: Disable the charghe threshold
- status:  Display charghe threshold  and battery status
+ enable : Enable the charge threshold
+ disable: Disable the charge threshold
+ status:  Display charge threshold  and battery status
  help   : Display this message
  '
 }
